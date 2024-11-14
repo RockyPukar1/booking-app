@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { Request } from "express";
-import { validationResult } from "express-validator"
+import { Request, Response } from "express";
+import { validationResult } from "express-validator";
 
 import User from "../models/user.model";
 
@@ -15,7 +15,7 @@ export const register = async (req: Request, res) => {
     });
 
     if (user) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "User already exists",
       });
     }
@@ -35,7 +35,7 @@ export const register = async (req: Request, res) => {
       secure: process.env.NODE_ENV === "production",
       maxAge: 86400000,
     });
-    return res.sendStatus(200);
+    return res.status(200).send({ message: "User registered OK" });
   } catch (error) {
     console.log("CONTROLLER[REGISTER]", error);
     res.status(500).send({

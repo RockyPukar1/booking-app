@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { check } from "express-validator";
 
-import { login } from "../controllers/auth.controllers";
+import { login, logout } from "../controllers/auth.controllers";
 
 import { verifyToken } from "../middlewares/verify-token.middleware";
 
@@ -18,5 +18,7 @@ router.post("/login", [
 router.get("/validate-token", verifyToken, (req: Request, res: Response) => {
   res.status(200).send({ userId: req.userId });
 });
+
+router.post("/logout", logout)
 
 export default router;

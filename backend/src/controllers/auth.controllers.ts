@@ -1,11 +1,11 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { Request } from "express";
+import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 
 import User from "../models/user.model";
 
-export const login = async (req: Request, res) => {
+export const login = async (req: Request, res: Response) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
@@ -51,7 +51,7 @@ export const login = async (req: Request, res) => {
   }
 };
 
-export const logout = (req: Request, res) => {
+export const logout = (req: Request, res: Response) => {
   res.cookie("auth_token", "", {
     expires: new Date(0),
   });

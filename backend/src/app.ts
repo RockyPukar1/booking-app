@@ -1,5 +1,6 @@
-import express from "express";
 import cors from "cors";
+import path from "path";
+import express from "express";
 import mongoose from "mongoose";
 
 import "dotenv/config";
@@ -21,6 +22,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

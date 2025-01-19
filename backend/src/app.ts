@@ -1,6 +1,6 @@
 import cors from "cors";
 import path from "path";
-import express from "express";
+import express, { Request, Response } from "express";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import { v2 as cloudinary } from "cloudinary";
@@ -36,8 +36,12 @@ app.use("/api/users", userRoutes);
 
 app.use("/api/hotels", hotelRoutes);
 
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server runnning at PORT ${PORT}`);
+  console.log(`Server running at PORT ${PORT}`);
 });

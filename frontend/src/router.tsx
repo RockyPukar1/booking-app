@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import AddHotel from "./pages/AddHotel";
+import Hotels from "./pages/Hotels";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/add-hotel",
         element: <AddHotel />,
+      },
+      {
+        path: "/hotels",
+        element: <Hotels />,
       },
     ],
   },

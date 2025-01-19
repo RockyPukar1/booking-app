@@ -4,7 +4,7 @@ import express from "express";
 import { upload } from "../middlewares/file-upload.middleware";
 import { verifyToken } from "../middlewares/verify-token.middleware";
 
-import { addHotel } from "../controllers/hotel.controllers";
+import { addHotel, getAllHotels } from "../controllers/hotel.controllers";
 
 const router = express.Router();
 
@@ -27,6 +27,12 @@ router.post(
   ],
   upload.array("imageFiles", 6),
   addHotel
+);
+
+router.post(
+  "/",
+  verifyToken,
+  getAllHotels
 );
 
 export default router;

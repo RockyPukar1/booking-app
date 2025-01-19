@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import SignIn from "./pages/SignIn";
 import AddHotel from "./pages/AddHotel";
 import Hotels from "./pages/Hotels";
+import EditHotel from "./pages/EditHotel";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
         path: "/hotels",
         element: <Hotels />,
       },
+      {
+        path: "/edit-hotel/:hotelId",
+        element: <EditHotel />
+      }
     ],
   },
   {

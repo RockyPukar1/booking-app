@@ -6,7 +6,7 @@ import { BiHotel, BiMoney, BiStar } from "react-icons/bi";
 import * as apiClient from "../api-client";
 
 export default function Hotels() {
-  const { data: hotelData } = useQuery("fetchMyHotels", apiClient.fetchHotels, {
+  const { data: hotelData } = useQuery("fetchHotels", apiClient.fetchHotels, {
     onError: () => {},
   });
 

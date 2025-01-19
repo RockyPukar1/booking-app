@@ -60,7 +60,7 @@ test("should allow user to add a hotel", async ({ page }) => {
 });
 
 test("should display hotels", async ({ page }) => {
-  await page.goto(`${UI_URL}my-hotels`);
+  await page.goto(`${UI_URL}hotels`);
 
   await expect(page.getByText("<name>")).toBeVisible();
   await expect(page.getByText("<description>")).toBeVisible();

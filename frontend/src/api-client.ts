@@ -85,3 +85,34 @@ export const fetchHotels = async (): Promise<HotelType[]> => {
 
   return response.json();
 };
+
+export const fetchHotelById = async (hotelId: string): Promise<HotelType> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/${hotelId}`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching hotel");
+  }
+
+  return response.json();
+};
+
+export const updateHotelById = async (
+  hotelFormData: FormData
+): Promise<HotelType> => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/${hotelFormData.get("hotelId")}`,
+    {
+      method: "PUT",
+      body: hotelFormData,
+      credentials: "include",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Error fetching hotel");
+  }
+
+  return response.json();
+};

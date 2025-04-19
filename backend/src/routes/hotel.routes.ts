@@ -4,7 +4,13 @@ import express from "express";
 import { upload } from "../middlewares/file-upload.middleware";
 import { verifyToken } from "../middlewares/verify-token.middleware";
 
-import { addHotel, getAllHotels, getHotelById, updateHotelById } from "../controllers/hotel.controllers";
+import {
+  addHotel,
+  getAllHotels,
+  getHotelById,
+  updateHotelById,
+  searchHotels,
+} from "../controllers/hotel.controllers";
 
 const router = express.Router();
 
@@ -29,23 +35,17 @@ router.post(
   addHotel
 );
 
-router.post(
-  "/",
-  verifyToken,
-  getAllHotels
-);
+router.post("/", verifyToken, getAllHotels);
 
-router.get(
-  "/:id",
-  verifyToken,
-  getHotelById
-);
+router.get("/:id", verifyToken, getHotelById);
 
 router.put(
   "/:hotelId",
   verifyToken,
   upload.array("imageFiles"),
   updateHotelById
-)
+);
+
+router.get("/search", verifyToken, searchHotels);
 
 export default router;

@@ -1,9 +1,11 @@
 import cloudinary from "cloudinary";
 import { Request, Response } from "express";
 
-import { HotelType } from "../shared/types";
+import { HotelSearchParams, HotelType } from "../shared/types";
 
 import Hotel from "../models/hotel.model";
+
+import { constructSearchQuery } from "../utils/helpers";
 
 export const addHotel = async (req: Request, res: Response) => {
   try {
@@ -89,6 +91,45 @@ export async function updateHotelById(req: Request, res: Response) {
 
     await hotel.save();
     res.status(201).json(hotel);
+  } catch (error) {
+    res.status(500).json({ message: "Something went throw" });
+  }
+}
+
+export async function searchHotels(req: Request, res: Response) {
+  try {
+    const query = constructSearchQuery(req.query);
+
+    let sortOptions = {};
+    switch (req.query.sortOptions) {
+      case "starRating":
+        sortOptions = { starRating: -1 };
+    }
+
+    const pageSize = 5;
+    const pageNumber = parseInt(
+      req.query.page ? req.query.page.toString() : "1"
+    );
+
+    const skip = (pageNumber - 1) * pageSize;
+
+    const hotels = await Hotel.find(query)
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(pageSize);
+
+    const total = await Hotel.countDocuments(query);
+
+    const response: HotelSearchParams = {
+      data: hotels,
+      pagination: {
+        total,
+        page: pageNumber,
+        pages: Math.ceil(total / pageSize),
+      },
+    };
+
+    res.json(response);
   } catch (error) {
     res.status(500).json({ message: "Something went throw" });
   }

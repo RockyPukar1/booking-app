@@ -1,7 +1,7 @@
 import {
   HotelSearchResponse,
   HotelType,
-  SearchParams,
+  HotelSearchParams,
 } from "../../backend/src/shared/types";
 import { IRegisterFormData } from "./pages/Register";
 import { ISignInFormData } from "./pages/SignIn";
@@ -102,6 +102,16 @@ export const fetchHotelById = async (hotelId: string): Promise<HotelType> => {
   return response.json();
 };
 
+export const fetchOtherHotelById = async (
+  hotelId: string
+): Promise<HotelType> => {
+  const response = await fetch(`${API_BASE_URL}/api/hotels/other/${hotelId}`);
+  if (!response.ok) {
+    throw new Error("Error fetching hotels");
+  }
+  return response.json();
+};
+
 export const updateHotelById = async (
   hotelFormData: FormData
 ): Promise<HotelType> => {
@@ -122,7 +132,7 @@ export const updateHotelById = async (
 };
 
 export const searchHotels = async (
-  searchParams: SearchParams
+  searchParams: HotelSearchParams
 ): Promise<HotelSearchResponse> => {
   const queryParams = new URLSearchParams();
   queryParams.append("destination", searchParams.destination || "");

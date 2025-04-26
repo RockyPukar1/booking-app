@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import express from "express";
 
 import { upload } from "../middlewares/file-upload.middleware";
@@ -13,6 +13,8 @@ import {
 } from "../controllers/hotel.controllers";
 
 const router = express.Router();
+
+router.get("/other/:id", param("id").notEmpty().withMessage("Hotel ID is required"), getOtherHotelById);
 
 router.post(
   "/",

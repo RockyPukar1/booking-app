@@ -6,6 +6,7 @@ import { HotelSearchParams, HotelType } from "../shared/types";
 import Hotel from "../models/hotel.model";
 
 import { constructSearchQuery } from "../utils/helpers";
+import { validationResult } from "express-validator";
 
 export const addHotel = async (req: Request, res: Response) => {
   try {
@@ -64,6 +65,23 @@ export async function getHotelById(req: Request, res: Response) {
     res.json(hotel);
   } catch (error) {
     res.status(500).json({ message: "Error fetching hotels" });
+  }
+}
+
+export async function getOtherHotelById(req: Request, res: Response) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const id = req.params.id.toString();
+
+  try {
+    const hotel = await Hotel.findById(id);
+    res.json(hotel);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching hotel" });
   }
 }
 

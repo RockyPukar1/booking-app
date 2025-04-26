@@ -23,7 +23,7 @@ export type HotelType = {
   lastUpdated: Date;
 };
 
-export type SearchParams = {
+export type HotelSearchParams = {
   destination?: string;
   checkIn?: string;
   checkOut?: string;

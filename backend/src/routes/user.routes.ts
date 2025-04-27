@@ -1,9 +1,12 @@
 import express from "express";
 import { check } from "express-validator";
 
-import { register } from "../controllers/user.controllers";
+import { register, getMe } from "../controllers/user.controllers";
+import { verifyToken } from "../middlewares/verify-token.middleware";
 
 const router = express.Router();
+
+router.get("/me", verifyToken, getMe);
 
 router.post(
   "/register",
